@@ -16,7 +16,7 @@ public class Virus : AttackingObject
     // Update is called once per frame
     void Update()
     {
-        if (findTarget(gameManager.InfectableCells, transform))
+        if (findTarget(gameManager.InfectableCells, gameManager.end.transform, 2f))
         {
             Target.GetComponent<Cell>().Infect();
             Destroy();

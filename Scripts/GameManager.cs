@@ -16,4 +16,9 @@ public class GameManager : MonoBehaviour
     {
         get { return viruses; }
     }
+
+    private void Update()
+    {
+        //AstarPath.active.Scan();
+    }
 }
