@@ -7,6 +7,7 @@ public class Virus : AttackingObject
 {
     //how many viruses it will produce per second in an infected cell
     public float reproRate = 1f;
+    public float range;
     void Awake()
     {
         Init();
@@ -16,7 +17,7 @@ public class Virus : AttackingObject
     // Update is called once per frame
     void Update()
     {
-        if (findTarget(gameManager.InfectableCells, gameManager.end.transform, 2f))
+        if (findTarget(gameManager.InfectableCells, gameManager.end.transform, range))
         {
             Target.GetComponent<Cell>().Infect();
             Destroy();

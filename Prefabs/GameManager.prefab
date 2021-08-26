@@ -43,4 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6d2cd47cdcb0241bd08787259e9872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cell: {fileID: 4729297399453079518, guid: 820505f1f2281fd49ae2418319984f6f, type: 3}
   end: {fileID: 3374618776946709118, guid: 546656fb845a88444b20db15fd668061, type: 3}
+  start: {fileID: 0}
+  spawnTimer: 0

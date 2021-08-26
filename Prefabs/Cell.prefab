@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   drawGizmos: 1
-  detailedGizmos: 1
+  detailedGizmos: 0
   startEndModifier:
     addPoints: 0
     exactStartPoint: 3
@@ -197,9 +197,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.01, y: -0.01}
   serializedVersion: 2
-  m_Radius: 0.089431524
+  m_Radius: 0.18400383
 --- !u!50 &-1903792124198477911
 Rigidbody2D:
   serializedVersion: 4

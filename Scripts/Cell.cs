@@ -15,6 +15,7 @@ public class Cell : MovingObject
     private void Awake()
     {
         Init();
+        Target = gameManager.end.transform;
         gameManager.InfectableCells.Add(gameObject);
         burstTimer = burstRate;
     }

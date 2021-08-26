@@ -53,6 +53,6 @@ public abstract class AttackingObject : MovingObject
 
     public void OnDrawGizmos()
     {
-       // UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, Range);
+       //UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, Range);
     }
 }
