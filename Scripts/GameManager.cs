@@ -11,11 +11,12 @@ public class GameManager : MonoBehaviour
     public Transform end;
     public Transform start;
     public float spawnTimer;
+    public List<GameObject> Towers;
     private int cellIndex;
-    public Round round1 = new Round(5, new int[] { 3 }, 2);
-    public Round round2 = new Round(50, new int[] { 5, 10, 15, 20, 25, 30, 35, 40, 45 }, 1.5f);
+    private List<Round> rounds = new List<Round>();
+    private GridManager gridManager;
 
-    private bool playRound = false;
+    public bool inRound = false; //this ends when the round has finished spawning cells, needs to end on actual round end
     private Round currentRound;
 
     public List<GameObject> InfectableCells
@@ -27,14 +28,16 @@ public class GameManager : MonoBehaviour
         get { return viruses; }
     }
 
-    private void Awake()
+    private void Start()
     {
-        startRound(round2);
+        gridManager = FindObjectOfType<GridManager>();
+        rounds.Add(new Round(5, new int[] { 3 }, 2, new Vector2(0, 7), new Vector2(11, 5), new List<(GameObject, Vector2)> { (Towers[0], new Vector2(4, 6)) }));
+        gridManager.fillGrid(rounds[0]);
     }
 
     private void Update()
     {
-        if (playRound)
+        if (inRound)
         {
             if (spawnTimer <= 0)
             {
@@ -45,7 +48,23 @@ public class GameManager : MonoBehaviour
                 spawnTimer -= Time.deltaTime;
             }
         }
+        else 
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                startRound(rounds[0]);
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                gridManager.placeOnGrid(mousePos());
+            }
+        }
 
+    }
+
+    public Vector3 mousePos()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     public void executeRound(Round round)
@@ -54,7 +73,9 @@ public class GameManager : MonoBehaviour
         if (cellIndex < round.cellAmount)
         {
             spawnTimer = round.spawnTime;
-            GameObject newCell = Instantiate<GameObject>(cell, start.transform.position, Quaternion.identity);
+            Vector3 pos = start.transform.position;
+            pos.z -= 1; //makes cells appear above the path
+            GameObject newCell = Instantiate<GameObject>(cell, pos, Quaternion.identity);
             if (round.infectedCells.Contains(cellIndex)) //if the index is in the infected cells array, infect this cell
             {
                 newCell.GetComponent<Cell>().Infect();
@@ -63,16 +84,17 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            playRound = false;
+            inRound = false;
         }
     }
 
     public void startRound(Round round)
     {
+        AstarPath.active.Scan();
         start = FindObjectOfType<StartTile>().transform; //starting position
         end = FindObjectOfType<EndTile>().transform; //end position
         currentRound = round;
-        playRound = true;
+        inRound = true;
         spawnTimer = round.spawnTime;
         cellIndex = 1; //the number of the cell about to be spawned
     }

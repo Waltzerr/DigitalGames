@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AttackingObject : MovingObject
 {
-    private float Range;
+    public float Range;
     //Find the closest target from a list of potential targets, set target to itself if none can be found
     //Todo: range
     public bool findTarget(List<GameObject> targetList, Transform resetPos, float range = 25f)

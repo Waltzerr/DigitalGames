@@ -181,6 +181,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
   aiPath: {fileID: 0}
+  Range: 1
   health: 3
 --- !u!58 &-8153035737707682700
 CircleCollider2D:

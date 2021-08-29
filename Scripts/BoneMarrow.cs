@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoneMarrow : MonoBehaviour
+public class BoneMarrow : Object
 {
     public float prodTime = 5;
     private float prodTimer;
@@ -12,13 +12,17 @@ public class BoneMarrow : MonoBehaviour
 
     void Awake()
     {
+        Init();
         prodTimer = prodTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        produceCell();
+        if (gameManager.inRound)
+        {
+            produceCell();
+        }
     }
 
     public void produceCell()
@@ -28,10 +32,11 @@ public class BoneMarrow : MonoBehaviour
             if (prodTimer <= 0)
             {
                 prodTimer = prodTime;
-                GameObject newCell = Instantiate<GameObject>(cell, transform.position, Quaternion.identity);
+                Vector3 pos = transform.position;
+                pos.z -= 1; //makes cells appear above the path
+                GameObject newCell = Instantiate<GameObject>(cell, pos, Quaternion.identity);
                 newCell.GetComponent<Macrophage>().BoneMarrow = this;
                 Cells.Add(newCell);
-
             }
             else
             {

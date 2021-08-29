@@ -7,12 +7,11 @@ using Pathfinding;
 [RequireComponent(typeof(AIPath))]
 [RequireComponent(typeof(Rigidbody2D))]
 
-public abstract class MovingObject : MonoBehaviour
+public abstract class MovingObject : Object
 {
-    public GameManager gameManager;
-    public SpriteRenderer sprite;
+    
     public AIPath aiPath;
-    public void Init()
+    public new void Init()
     {
         gameManager = FindObjectOfType<GameManager>();
         sprite = GetComponent<SpriteRenderer>();
