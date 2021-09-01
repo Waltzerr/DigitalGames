@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
+        gridManager.Setup();
         rounds.Add(new Round(5, new int[] { 3 }, 2, new Vector2(0, 7), new Vector2(11, 5), new List<(GameObject, Vector2)> { (Towers[0], new Vector2(4, 6)) }));
         gridManager.fillGrid(rounds[0]);
     }

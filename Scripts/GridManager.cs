@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
     private GameObject[] walls;
     private List<GameObject> towers = new List<GameObject>();
 
-    private void Start()
+    public void Setup()
     {
         astar = AstarPath.active;
         astar.Scan();
@@ -26,7 +26,6 @@ public class GridManager : MonoBehaviour
         foreach(GridNode node in astar.data.gridGraph.nodes)
         {
             GameObject newWall = Instantiate<GameObject>(wall, (Vector3)node.position, Quaternion.identity);
-            //newWall.transform.parent = transform;
             walls[i] = newWall;
             i++;
         }
