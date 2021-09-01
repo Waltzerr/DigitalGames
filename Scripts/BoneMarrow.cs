@@ -21,7 +21,10 @@ public class BoneMarrow : Object
     {
         if (gameManager.inRound)
         {
-            produceCell();
+            if(GridManager.Instance.connectedPath(transform.position).Count > 0)
+            {
+                produceCell();
+            }
         }
     }
 

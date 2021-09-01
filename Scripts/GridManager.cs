@@ -5,20 +5,28 @@ using Pathfinding;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance;
     private AstarPath astar;
-    public GameObject start;
-    public GameObject end;
-    public GameObject wall;
-    public GameObject path;
-    private GameObject[] walls;
-    private List<GameObject> towers = new List<GameObject>();
+    public GameObject start; //start of path
+    public GameObject end; //end of path
+    public GameObject wall; //prefab of non-passable area
+    public GameObject path; //prefab of passable area
+    private GameObject[] walls; //array of all non-passable areas
+    private List<GameObject> towers = new List<GameObject>(); //list of all towers
+    private List<GameObject> paths = new List<GameObject>(); //list of all paths
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+    //sets up the class
     public void Setup()
     {
         astar = AstarPath.active;
         astar.Scan();
     }
 
+    //fills the grid with walls
     public void fillGrid(Round round)
     {
         walls = new GameObject[astar.data.gridGraph.nodes.Length];
@@ -39,19 +47,51 @@ public class GridManager : MonoBehaviour
         astar.Scan();
     }
 
+    //returns a list of all connected paths
+    public List<GameObject> connectedPath(Vector3 from)
+    {
+        List<GameObject> connected = new List<GameObject>();
+        foreach(GameObject path in paths)
+        {
+            Debug.Log(Vector3.Distance(path.transform.position, from));
+            if(Vector3.Distance(path.transform.position, from) < 1.5f && path.transform.position != from)
+            {
+                connected.Add(path);
+            }
+        }
+        return connected;
+    } 
+
+    //places any object on the path and removes the walls under it
     private GameObject placeOnGrid(GameObject gameObject, Vector2 coords)
     {
         GameObject newObject = Instantiate(gameObject, coordToPos(coords), Quaternion.identity);
-        //newObject.transform.parent = transform;
         GameObject removeWall = walls[coordToIndex(coords)];
         walls[coordToIndex(coords)] = null;
         Destroy(removeWall);
         return newObject;
     }
 
-    public GameObject placeOnGrid(Vector3 mousePos)
+    //places path on the mouse position
+    public void placeOnGrid(Vector3 mousePos)
     {
-        return placeOnGrid(path, posToCoord(mousePos));
+        if (!hasPath(mousePos))
+        {
+            GameObject newPath = placeOnGrid(path, posToCoord(mousePos));
+            paths.Add(newPath);
+        }
+    }
+
+    private bool hasPath(Vector3 pos)
+    {
+        foreach(GameObject path in paths)
+        {
+            if(Vector3.Distance(path.transform.position, coordToPos(posToCoord(pos))) < 0.5f)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Vector3 coordToPos(Vector2 coords)

@@ -5,6 +5,7 @@ using Pathfinding;
 using System.Linq;
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
     private List<GameObject> infectableCells = new List<GameObject>();
     private List<GameObject> viruses = new List<GameObject>();
     public GameObject cell;
@@ -27,7 +28,10 @@ public class GameManager : MonoBehaviour
     {
         get { return viruses; }
     }
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
@@ -55,15 +59,15 @@ public class GameManager : MonoBehaviour
             {
                 startRound(rounds[0]);
             }
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
-                gridManager.placeOnGrid(mousePos());
+                gridManager.placeOnGrid(MousePos());
             }
         }
 
     }
 
-    public Vector3 mousePos()
+    public Vector3 MousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
