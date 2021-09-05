@@ -11,6 +11,7 @@ public abstract class MovingObject : Object
 {
     
     public AIPath aiPath;
+
     public new void Init()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -22,6 +23,15 @@ public abstract class MovingObject : Object
     {
         get { return GetComponent<AIDestinationSetter>().target; }
         set { GetComponent<AIDestinationSetter>().target = value; }
+    }
+
+    public bool atEnd()
+    {
+        if (Vector3.Distance(GameManager.Instance.end.position, transform.position) <= 1f && Target == GameManager.Instance.end)
+        {
+            return true;
+        }
+        return false;
     }
 
     public abstract void Destroy();

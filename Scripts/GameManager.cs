@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     private List<GameObject> infectableCells = new List<GameObject>();
+    private List<GameObject> infectedCells = new List<GameObject>();
     private List<GameObject> viruses = new List<GameObject>();
     public GameObject cell;
     public Transform end;
@@ -23,6 +24,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> InfectableCells
     {
         get { return infectableCells; }
+    }
+    public List<GameObject> InfectedCells
+    {
+        get { return infectedCells; }
     }
     public List<GameObject> Viruses
     {
@@ -87,8 +92,9 @@ public class GameManager : MonoBehaviour
             }
             cellIndex++;
         }
-        else
+        else if(viruses.Count == 0 && infectableCells.Count == 0 && infectedCells.Count == 0)
         {
+            Debug.Log("Round end");
             inRound = false;
         }
     }
@@ -96,8 +102,6 @@ public class GameManager : MonoBehaviour
     public void startRound(Round round)
     {
         AstarPath.active.Scan();
-        start = FindObjectOfType<StartTile>().transform; //starting position
-        end = FindObjectOfType<EndTile>().transform; //end position
         currentRound = round;
         inRound = true;
         spawnTimer = round.spawnTime;

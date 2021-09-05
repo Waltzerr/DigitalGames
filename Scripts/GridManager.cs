@@ -31,19 +31,21 @@ public class GridManager : MonoBehaviour
     {
         walls = new GameObject[astar.data.gridGraph.nodes.Length];
         int i = 0;
-        foreach(GridNode node in astar.data.gridGraph.nodes)
+        foreach (GridNode node in astar.data.gridGraph.nodes)
         {
             GameObject newWall = Instantiate<GameObject>(wall, (Vector3)node.position, Quaternion.identity);
             walls[i] = newWall;
             i++;
         }
-        foreach((GameObject, Vector2) tower in round.Towers)
+        foreach ((GameObject, Vector2) tower in round.Towers)
         {
             GameObject newTower = placeOnGrid(tower.Item1, tower.Item2);
             towers.Add(newTower);
         }
-        placeOnGrid(start, round.startPos);
-        placeOnGrid(end, round.endPos);
+        GameManager.Instance.start = placeOnGrid(start, round.startPos).transform;
+        GameManager.Instance.end = placeOnGrid(end, round.endPos).transform;
+        paths.Add(GameManager.Instance.start.gameObject);
+        paths.Add(GameManager.Instance.end.gameObject);
         astar.Scan();
     }
 
@@ -51,16 +53,15 @@ public class GridManager : MonoBehaviour
     public List<GameObject> connectedPath(Vector3 from)
     {
         List<GameObject> connected = new List<GameObject>();
-        foreach(GameObject path in paths)
+        foreach (GameObject path in paths)
         {
-            Debug.Log(Vector3.Distance(path.transform.position, from));
-            if(Vector3.Distance(path.transform.position, from) < 1.5f && path.transform.position != from)
+            if (Vector3.Distance(path.transform.position, from) <= 1.05f && path.transform.position != from)
             {
                 connected.Add(path);
             }
         }
         return connected;
-    } 
+    }
 
     //places any object on the path and removes the walls under it
     private GameObject placeOnGrid(GameObject gameObject, Vector2 coords)
@@ -75,30 +76,50 @@ public class GridManager : MonoBehaviour
     //places path on the mouse position
     public void placeOnGrid(Vector3 mousePos)
     {
-        if (!hasPath(mousePos))
+        if (canPlace(mousePos))
         {
-            GameObject newPath = placeOnGrid(path, posToCoord(mousePos));
-            paths.Add(newPath);
+            Vector2 coords = posToCoord(mousePos);
+            if (coords.x != -1)
+            {
+                GameObject newPath = placeOnGrid(path, coords);
+                paths.Add(newPath);
+            }
         }
     }
 
-    private bool hasPath(Vector3 pos)
+    private bool canPlace(Vector3 pos)
     {
-        foreach(GameObject path in paths)
+        Vector2 coords = posToCoord(pos);
+        if (coords == posToCoord(GameManager.Instance.start.position) || coords == posToCoord(GameManager.Instance.end.position))
         {
-            if(Vector3.Distance(path.transform.position, coordToPos(posToCoord(pos))) < 0.5f)
+            return false;
+        }
+        foreach (GameObject path in paths)
+        {
+            if (Vector3.Distance(path.transform.position, coordToPos(coords)) < 0.5f)
             {
-                return true;
+                return false;
             }
         }
-        return false;
+        foreach (GameObject tower in towers)
+        {
+            if (Vector3.Distance(tower.transform.position, coordToPos(coords)) < 0.5f)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private Vector3 coordToPos(Vector2 coords)
     {
         int index = (int)coords.x + (int)(coords.y * (astar.data.gridGraph.width));
-        return (Vector3)astar.data.gridGraph.nodes[index].position;
-    } 
+        if (index >= 0 && index < astar.data.gridGraph.nodes.Length)
+        {
+            return (Vector3)astar.data.gridGraph.nodes[index].position;
+        }
+        return new Vector2(-1, -1);
+    }
 
     private int coordToIndex(Vector2 coords)
     {
@@ -113,12 +134,12 @@ public class GridManager : MonoBehaviour
         {
             if (Vector3.Distance((Vector3)astar.data.gridGraph.nodes[i].position, exactPos) < 0.5)
             {
-                int y = i/ astar.data.gridGraph.width;
+                int y = i / astar.data.gridGraph.width;
                 int x = i - (y * astar.data.gridGraph.width);
                 return new Vector2(x, y);
             }
         }
-        return Vector2.zero;
+        return new Vector2(-1, -1);
     }
 
 }
