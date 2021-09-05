@@ -23,7 +23,8 @@ public class Cell : MovingObject
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, Target.position) < 0.1){
+        if (atEnd())
+        {
             Destroy();
         }
         if (infected)
@@ -35,6 +36,7 @@ public class Cell : MovingObject
     public void Infect()
     {
         gameManager.InfectableCells.Remove(gameObject);
+        GameManager.Instance.InfectedCells.Add(gameObject);
         infected = true;
     }
 
@@ -62,6 +64,10 @@ public class Cell : MovingObject
         if (gameManager.InfectableCells.Contains(gameObject))
         {
             gameManager.InfectableCells.Remove(gameObject);
+        }
+        if (gameManager.InfectedCells.Contains(gameObject))
+        {
+            gameManager.InfectedCells.Remove(gameObject);
         }
         Destroy(gameObject);
     }
