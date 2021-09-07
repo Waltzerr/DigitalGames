@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Macrophage : AttackingObject
 {
-    private BoneMarrow boneMarrow;
+    
     public int health = 3;
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class Macrophage : AttackingObject
         {
             Destroy();
         }
-        if (findTarget(gameManager.Viruses, BoneMarrow.transform, 3f))
+        if (findTarget(gameManager.Viruses, Tower.transform, 3f))
         {
             health -= 1;
             Target.GetComponent<Virus>().Destroy();
@@ -26,16 +26,10 @@ public class Macrophage : AttackingObject
 
     public override void Destroy()
     {
-        if(BoneMarrow != null)
+        if(Tower != null)
         {
-            BoneMarrow.Cells.Remove(gameObject);
+            Tower.Cells.Remove(gameObject);
         }
         Destroy(gameObject);
-    }
-
-    public BoneMarrow BoneMarrow
-    {
-        get { return boneMarrow; }
-        set { boneMarrow = value; }
     }
 }

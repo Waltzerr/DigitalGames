@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoneMarrow : Object
+public class Tower : Object
 {
     public float prodTime = 5;
     private float prodTimer;
@@ -36,9 +36,8 @@ public class BoneMarrow : Object
             {
                 prodTimer = prodTime;
                 Vector3 pos = transform.position;
-                pos.z -= 1; //makes cells appear above the path
                 GameObject newCell = Instantiate<GameObject>(cell, pos, Quaternion.identity);
-                newCell.GetComponent<Macrophage>().BoneMarrow = this;
+                newCell.GetComponent<MovingObject>().Tower = this;
                 Cells.Add(newCell);
             }
             else

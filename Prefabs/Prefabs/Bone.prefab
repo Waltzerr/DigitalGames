@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2892278997001448655}
   - component: {fileID: 1234115380217969713}
   - component: {fileID: 6591154887672259457}
-  - component: {fileID: 4483600299139186540}
+  - component: {fileID: 4286888026896650838}
   m_Layer: 1
   m_Name: Bone
   m_TagString: Untagged
@@ -110,7 +110,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8684323, y: 0.98590183}
   m_EdgeRadius: 0
---- !u!114 &4483600299139186540
+--- !u!114 &4286888026896650838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,6 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
-  prodTime: 5
+  prodTime: 5.03
   cellMax: 3
   cell: {fileID: 6479772948149772048, guid: 952e4343b6a27f14ba40d20e93895560, type: 3}

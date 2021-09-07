@@ -5,12 +5,12 @@ using Pathfinding;
 
 [RequireComponent(typeof(AIDestinationSetter))]
 [RequireComponent(typeof(AIPath))]
-[RequireComponent(typeof(Rigidbody2D))]
 
 public abstract class MovingObject : Object
 {
     
     public AIPath aiPath;
+    private Tower tower;
 
     public new void Init()
     {
@@ -27,7 +27,7 @@ public abstract class MovingObject : Object
 
     public bool atEnd()
     {
-        if (Vector3.Distance(GameManager.Instance.end.position, transform.position) <= 1f && Target == GameManager.Instance.end)
+        if (Vector3.Distance(GameManager.Instance.end.position, transform.position) <= 0.25f && Target == GameManager.Instance.end)
         {
             return true;
         }
@@ -35,4 +35,10 @@ public abstract class MovingObject : Object
     }
 
     public abstract void Destroy();
+
+    public Tower Tower
+    {
+        get { return tower; }
+        set { tower = value; }
+    }
 }

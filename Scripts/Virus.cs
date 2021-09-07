@@ -21,7 +21,7 @@ public class Virus : AttackingObject
         {
             Destroy();
         }
-        if (findTarget(gameManager.InfectableCells, gameManager.end.transform, range))
+        if (findTarget(gameManager.InfectableCells, GameManager.Instance.end, range))
         {
             Target.GetComponent<Cell>().Infect();
             Destroy();

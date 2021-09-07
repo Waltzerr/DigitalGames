@@ -54,7 +54,7 @@ public class Cell : MovingObject
         }
         else
         {
-            transform.localScale = new Vector3(transform.localScale.x+0.001f, transform.localScale.y + 0.001f, transform.localScale.z);
+            transform.localScale = new Vector3(transform.localScale.x+0.0007f, transform.localScale.y + 0.0007f, transform.localScale.z);
             sprite.color = new Color(sprite.color.r - 0.001f, sprite.color.g - 0.001f, sprite.color.b - 0.001f);
             burstTimer -= Time.deltaTime;
         }

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     {
         gridManager = FindObjectOfType<GridManager>();
         gridManager.Setup();
-        rounds.Add(new Round(5, new int[] { 3 }, 2, new Vector2(0, 7), new Vector2(11, 5), new List<(GameObject, Vector2)> { (Towers[0], new Vector2(4, 6)) }));
+        rounds.Add(new Round(2, new int[] { 1 }, 2, new Vector2(0, 7), new Vector2(11, 5), new List<(GameObject, Vector2)> { (Towers[1], new Vector2(4, 6)) }));
         gridManager.fillGrid(rounds[0]);
     }
 
@@ -80,11 +80,10 @@ public class GameManager : MonoBehaviour
     public void executeRound(Round round)
     {
         spawnTimer = round.spawnTime;
-        if (cellIndex < round.cellAmount)
+        if (cellIndex <= round.cellAmount)
         {
             spawnTimer = round.spawnTime;
             Vector3 pos = start.transform.position;
-            pos.z -= 1; //makes cells appear above the path
             GameObject newCell = Instantiate<GameObject>(cell, pos, Quaternion.identity);
             if (round.infectedCells.Contains(cellIndex)) //if the index is in the infected cells array, infect this cell
             {
