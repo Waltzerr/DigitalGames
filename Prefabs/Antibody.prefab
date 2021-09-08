@@ -141,7 +141,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   centerOffsetCompatibility: NaN
   orientation: 1
-  enableRotation: 0
+  enableRotation: 1
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
@@ -218,5 +218,5 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
   aiPath: {fileID: 0}
-  Range: 2.5
-  slowAmount: 0.9
+  Range: 4
+  slowAmount: 0.75

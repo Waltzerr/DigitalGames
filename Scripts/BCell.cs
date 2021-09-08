@@ -52,6 +52,10 @@ public class BCell : MovingObject
 
     public override void Destroy()
     {
+        if (Tower != null)
+        {
+            Tower.Cells.Remove(gameObject);
+        }
         Destroy(gameObject);
     }
 }

@@ -11,7 +11,7 @@ public class Antibody : AttackingObject
         {
             Destroy();
         }
-        if (findTarget(gameManager.Viruses, GameManager.Instance.end, 1f))
+        if (findTarget(gameManager.Viruses, GameManager.Instance.end, Range))
         {
             Virus virus = Target.GetComponent<Virus>();
             virus.aiPath.maxSpeed = virus.aiPath.maxSpeed*slowAmount;

@@ -21,8 +21,4 @@ public class Round
         endPos = _endPos;
         Towers = _Towers;
     }
-    public Round(int _cellAmount, int[] _infectedCells, float _spawnTime)
-    {
-
-    }
 }
