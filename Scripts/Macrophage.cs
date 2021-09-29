@@ -21,7 +21,7 @@ public class Macrophage : AttackingObject
         {
             Destroy();
         }
-        if (findTarget(gameManager.Viruses, GameManager.Instance.end, 3f))
+        if (findTarget(gameManager.Viruses, GameManager.Instance.end, Range))
         {
             health -= 1;
             Target.GetComponent<Virus>().Destroy();
