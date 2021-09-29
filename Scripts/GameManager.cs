@@ -5,6 +5,7 @@ using Pathfinding;
 using System.Linq;
 public class GameManager : MonoBehaviour
 {
+    public bool removePath = false;
     public static GameManager Instance;
     private List<GameObject> infectableCells = new List<GameObject>();
     private List<GameObject> infectedCells = new List<GameObject>();
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
     {
         gridManager = FindObjectOfType<GridManager>();
         gridManager.Setup();
-        rounds.Add(new Round(30, new int[] { 3, 8, 13, 18, 23, 24, 25}, 1.75f, new Vector2(0, 7), new Vector2(11, 5), new List<(GameObject, Vector2)> { (Towers[1], new Vector2(4, 6)), (Towers[0], new Vector2(2, 4)) }));
+        rounds.Add(new Round(30, new int[] { 3, 8, 13, 18, 23, 24, 25}, 1.75f, new Vector2(0, 7), new Vector2(11, 5), new List<(GameObject, Vector2)> { (Towers[2], new Vector2(4, 6)), (Towers[0], new Vector2(2, 4)) }));
         gridManager.fillGrid(rounds[0]);
     }
 
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetMouseButton(0))
             {
-                gridManager.placeOnGrid(MousePos());
+                gridManager.removeOrPlacePath(MousePos());
             }
         }
 
@@ -105,5 +106,16 @@ public class GameManager : MonoBehaviour
         inRound = true;
         spawnTimer = round.spawnTime;
         cellIndex = 1; //the number of the cell about to be spawned
+    }
+
+    public void setPlacePath()
+    {
+        removePath = false;
+        Debug.Log(removePath);
+    }
+    public void setRemovePath()
+    {
+        removePath = true;
+        Debug.Log(removePath);
     }
 }

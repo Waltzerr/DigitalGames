@@ -74,15 +74,33 @@ public class GridManager : MonoBehaviour
     }
 
     //places path on the mouse position
-    public void placeOnGrid(Vector3 mousePos)
+    public void removeOrPlacePath(Vector3 mousePos)
     {
-        if (canPlace(mousePos))
+        if (!GameManager.Instance.removePath)
         {
-            Vector2 coords = posToCoord(mousePos);
-            if (coords.x != -1)
+            if (canPlace(mousePos))
             {
-                GameObject newPath = placeOnGrid(path, coords);
-                paths.Add(newPath);
+                Vector2 coords = posToCoord(mousePos);
+                if (coords.x != -1)
+                {
+                    GameObject newPath = placeOnGrid(path, coords);
+                    paths.Add(newPath);
+                }
+            }
+        }
+        else
+        {
+            foreach (GameObject path in paths)
+            {
+                if (Vector3.Distance(path.transform.position, new Vector3(mousePos.x, mousePos.y)) < 0.5f)
+                {
+                    if(path.name != start.name + "(Clone)" && path.name != end.name + "(Clone)")
+                    {
+                        paths.Remove(path);
+                        Destroy(path);
+                        return;
+                    }
+                }
             }
         }
     }
