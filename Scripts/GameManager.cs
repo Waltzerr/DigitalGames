@@ -111,11 +111,9 @@ public class GameManager : MonoBehaviour
     public void setPlacePath()
     {
         removePath = false;
-        Debug.Log(removePath);
     }
     public void setRemovePath()
     {
         removePath = true;
-        Debug.Log(removePath);
     }
 }
