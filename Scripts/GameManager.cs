@@ -116,4 +116,8 @@ public class GameManager : MonoBehaviour
     {
         removePath = true;
     }
+    public void Upgrade(int upgrade)
+    {
+
+    }
 }
