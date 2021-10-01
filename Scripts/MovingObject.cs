@@ -41,4 +41,9 @@ public abstract class MovingObject : Object
         get { return tower; }
         set { tower = value; }
     }
+
+    public static void Upgrade()
+    {
+        Debug.Log("Upgraded");
+    }
 }
