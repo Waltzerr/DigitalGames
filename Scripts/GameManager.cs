@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private int cellIndex;
     private List<Round> rounds = new List<Round>();
     private GridManager gridManager;
+    public GameObject[] panels;
 
     public bool inRound = false; //this ends when the round has finished spawning cells, needs to end on actual round end
     private Round currentRound;
@@ -119,5 +120,14 @@ public class GameManager : MonoBehaviour
     public void Upgrade(int upgrade)
     {
 
+    }
+
+    public void ChoosePanel(int panelID)
+    {
+        foreach(GameObject panel in panels)
+        {
+            panel.SetActive(false);
+        }
+        panels[panelID].SetActive(true);
     }
 }
