@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private List<Round> rounds = new List<Round>();
     private GridManager gridManager;
     public GameObject[] panels;
+    public int TowerUpgrade;//TowerUpgrade
 
     public bool inRound = false; //this ends when the round has finished spawning cells, needs to end on actual round end
     private Round currentRound;
@@ -119,7 +120,8 @@ public class GameManager : MonoBehaviour
     }
     public void Upgrade(int upgrade)
     {
-
+        TowerUpgrade = upgrade;
+        ChoosePanel(1);
     }
 
     public void ChoosePanel(int panelID)
@@ -129,5 +131,21 @@ public class GameManager : MonoBehaviour
             panel.SetActive(false);
         }
         panels[panelID].SetActive(true);
+    }
+
+    public void ChooseUpgrade(int upgrade)
+    {
+        if(upgrade == 1)
+        {
+            //SpeedFunc(TowerUpgrade);
+        }
+        else if (upgrade == 2)
+        {
+            //statFunc(TowerUpgrade);
+        }
+        else if(upgrade == 3)
+        {
+            //statFunc(TowerUpgrade);
+        }
     }
 }
