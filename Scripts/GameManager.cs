@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Pathfinding;
 using System.Linq;
 public class GameManager : MonoBehaviour
@@ -147,5 +148,10 @@ public class GameManager : MonoBehaviour
         {
             //statFunc(TowerUpgrade);
         }
+    }
+
+    public void PlayButton()
+    {
+        SceneManager.LoadScene("Sample Round 1");
     }
 }
