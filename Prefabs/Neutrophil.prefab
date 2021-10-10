@@ -218,5 +218,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
   aiPath: {fileID: 0}
+  speed: 1
   Range: 0.2
+  explosionSprite: {fileID: 21300000, guid: 2b442c61559c1d44cba27856786f0b05, type: 3}
   disperseTime: 3

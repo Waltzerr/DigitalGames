@@ -134,7 +134,7 @@ MonoBehaviour:
   repathRate: 0.5
   canSearch: 1
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 0.9
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -181,9 +181,11 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
   aiPath: {fileID: 0}
+  speed: 1
   virus: {fileID: -2619062780206626568, guid: 401999b3ff12bbd4fa32cf9aaffe9ba5, type: 3}
   infected: 0
   burstRate: 3
+  worth: 2
 --- !u!58 &-5348706768885407138
 CircleCollider2D:
   m_ObjectHideFlags: 0

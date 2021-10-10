@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Neutrophil : AttackingObject
 {
+    public Sprite explosionSprite;
     public float disperseTime;
     bool hasExploded = false;
     Vector3 initScale;
@@ -20,7 +22,7 @@ public class Neutrophil : AttackingObject
             if (transform.localScale.x < initScale.x * 1.5)
             {
                 transform.localScale = new Vector3(transform.localScale.x + 0.004f, transform.localScale.y + 0.004f, transform.localScale.z);
-                sprite.color = new Color(sprite.color.r - 0.006f, sprite.color.g, sprite.color.b - 0.006f);
+                sprite.sprite = explosionSprite;
             }
         }
         else

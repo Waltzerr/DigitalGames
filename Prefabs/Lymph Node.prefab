@@ -124,6 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
-  prodTime: 7.5
+  prodTime: 10
   cellMax: 5
   cell: {fileID: 6479772948149772048, guid: d62ecacb6baf85b4f85a7dc5d52ac67f, type: 3}

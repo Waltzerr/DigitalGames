@@ -11,6 +11,7 @@ public class Cell : MovingObject
     public bool infected = false;
     public float burstRate = 3;
     private float burstTimer;
+    public int worth = 1;
     
     private void Awake()
     {
@@ -25,6 +26,14 @@ public class Cell : MovingObject
     {
         if (atEnd())
         {
+            if (infected)
+            {
+                GameManager.Instance.HP -= (int)Mathf.Round(virus.reproRate * burstRate);
+            }
+            else
+            {
+                ShopManager.Instance.DNA += worth;
+            }
             Destroy();
         }
         if (infected)
