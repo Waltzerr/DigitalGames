@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tower : Object
 {
     public float prodTime = 5;
+    public float prodMultiplier = 1;
     private float prodTimer;
     public int cellMax = 3;
     private List<GameObject> cells = new List<GameObject>();
@@ -13,7 +14,13 @@ public class Tower : Object
     void Awake()
     {
         Init();
-        prodTimer = prodTime;
+        prodTimer = prodTime * prodMultiplier;
+    }
+
+    public void updateProduction(float mult)
+    {
+        prodMultiplier -= mult;
+        prodTimer = prodTime * prodMultiplier;
     }
 
     // Update is called once per frame
@@ -34,7 +41,7 @@ public class Tower : Object
         {
             if (prodTimer <= 0)
             {
-                prodTimer = prodTime;
+                prodTimer = prodTime * prodMultiplier;
                 Vector3 pos = transform.position;
                 GameObject newCell = Instantiate<GameObject>(cell, pos, Quaternion.identity);
                 newCell.GetComponent<MovingObject>().Tower = this;
@@ -45,6 +52,16 @@ public class Tower : Object
                 prodTimer -= Time.deltaTime;
             }
         }
+    }
+
+    public void deleteCells()
+    {
+        foreach(GameObject cell in cells)
+        {
+            cell.GetComponent<MovingObject>().Tower = null;
+            cell.GetComponent<MovingObject>().Destroy();
+        }
+        cells.Clear();
     }
 
     public List<GameObject> Cells

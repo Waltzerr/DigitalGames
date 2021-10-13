@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Macrophage : AttackingObject
 {
-    
     public int health = 3;
     private void Awake()
     {

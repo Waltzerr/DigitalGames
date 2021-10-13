@@ -131,10 +131,10 @@ MonoBehaviour:
   version: 2
   radius: 0.5
   height: 2
-  repathRate: 0.5
+  repathRate: 0.1
   canSearch: 1
   canMove: 1
-  maxSpeed: 1.2
+  maxSpeed: 1.6
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -181,8 +181,9 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
   aiPath: {fileID: 0}
-  Range: 0.5
-  health: 3
+  speed: 1
+  Range: 1
+  health: 2
 --- !u!58 &-8153035737707682700
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -196,9 +197,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.029199488, y: -0.0015658141}
+  m_Offset: {x: 0.00909096, y: -0.0015659233}
   serializedVersion: 2
-  m_Radius: 0.26716134
+  m_Radius: 0.098752566
 --- !u!50 &-962173367318351995
 Rigidbody2D:
   serializedVersion: 4

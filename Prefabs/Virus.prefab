@@ -134,7 +134,7 @@ MonoBehaviour:
   repathRate: 0.16
   canSearch: 1
   canMove: 1
-  maxSpeed: 1.5
+  maxSpeed: 1.3
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -181,6 +181,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
   aiPath: {fileID: 0}
+  speed: 1
   Range: 0
   reproRate: 0.5
   range: 1
