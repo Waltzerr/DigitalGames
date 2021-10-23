@@ -19,6 +19,7 @@ public class Virus : AttackingObject
     {
         if (atEnd())
         {
+            GameManager.Instance.HP -= 1;
             Destroy();
         }
         if (findTarget(gameManager.InfectableCells, GameManager.Instance.end, range))

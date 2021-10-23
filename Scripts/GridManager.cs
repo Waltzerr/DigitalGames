@@ -12,7 +12,7 @@ public class GridManager : MonoBehaviour
     public GameObject wall; //prefab of non-passable area
     public GameObject path; //prefab of passable area
     private GameObject[] walls; //array of all non-passable areas
-    private List<GameObject> towers = new List<GameObject>(); //list of all towers
+    public List<GameObject> towers = new List<GameObject>(); //list of all towers
     private List<GameObject> paths = new List<GameObject>(); //list of all paths
 
     private void Awake()
@@ -26,10 +26,33 @@ public class GridManager : MonoBehaviour
         astar.Scan();
     }
 
+    public void clearGrid()
+    {
+        foreach (GameObject path in paths)
+        {
+            Destroy(path);
+        }
+        paths.Clear();
+        if (walls != null)
+        {
+            foreach (GameObject wall in walls)
+            {
+                Destroy(wall);
+            }
+        }
+        walls = new GameObject[astar.data.gridGraph.nodes.Length];
+        foreach (GameObject tower in towers)
+        {
+            Destroy(tower);
+        }
+        towers.Clear();
+
+    }
+
     //fills the grid with walls
     public void fillGrid(Round round)
     {
-        walls = new GameObject[astar.data.gridGraph.nodes.Length];
+        clearGrid();
         int i = 0;
         foreach (GridNode node in astar.data.gridGraph.nodes)
         {
@@ -63,6 +86,31 @@ public class GridManager : MonoBehaviour
         return connected;
     }
 
+    //This needs serious fixing
+    public bool isValidPath()
+    {
+        List<GameObject> wholePath = new List<GameObject>();
+        foreach (GameObject path in paths)
+        {
+            List<GameObject> connectedPaths = connectedPath(path.transform.position);
+            foreach (GameObject cPath in connectedPaths)
+            {
+                if (!wholePath.Contains(cPath))
+                {
+                    wholePath.Add(cPath);
+                }
+            }
+        }
+        foreach (GameObject path in paths)
+        {
+            if (!wholePath.Contains(path))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //places any object on the path and removes the walls under it
     private GameObject placeOnGrid(GameObject gameObject, Vector2 coords)
     {
@@ -85,6 +133,7 @@ public class GridManager : MonoBehaviour
                 {
                     GameObject newPath = placeOnGrid(path, coords);
                     paths.Add(newPath);
+                    ShopManager.Instance.DNA -= 1;
                 }
             }
         }
@@ -94,10 +143,16 @@ public class GridManager : MonoBehaviour
             {
                 if (Vector3.Distance(path.transform.position, new Vector3(mousePos.x, mousePos.y)) < 0.5f)
                 {
-                    if(path.name != start.name + "(Clone)" && path.name != end.name + "(Clone)")
+                    if (path.name != start.name + "(Clone)" && path.name != end.name + "(Clone)")
                     {
                         paths.Remove(path);
+
+                        int index = coordToIndex(posToCoord(path.transform.position));
+                        GameObject newWall = Instantiate<GameObject>(wall, path.transform.position, Quaternion.identity);
+                        walls[index] = newWall;
+
                         Destroy(path);
+                        ShopManager.Instance.DNA += 1;
                         return;
                     }
                 }
@@ -108,6 +163,11 @@ public class GridManager : MonoBehaviour
     private bool canPlace(Vector3 pos)
     {
         Vector2 coords = posToCoord(pos);
+        pos = coordToPos(coords);
+        if (connectedPath(pos).Count == 0)
+        {
+            return false;
+        }
         if (coords == posToCoord(GameManager.Instance.start.position) || coords == posToCoord(GameManager.Instance.end.position))
         {
             return false;

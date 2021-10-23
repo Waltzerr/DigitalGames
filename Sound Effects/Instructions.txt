@@ -1,0 +1,65 @@
+The following outlines how the sounds are intented to be implemented in game.
+
+Button rollover
+-played each time a menu button gets hovered over, applies to every button.
+-play a random sound from the 3 different ones, with the pitch randomised + or - slightly
+
+Button Press
+-for pressing any button except the 3 upgrade tiers
+-play a random sound from the 4 different ones, with the pitch randomised + or - slightly
+
+Track placed
+-played every time a section of track is placed
+-play a random sound from the 7 different ones, with the pitch randomised + or - slightly
+
+Track destroy
+-played each time a section of track is destroyed, with the pitch randomised + or - slightly
+
+Upgrades 1-3
+-played each time the corresponding tier 1, 2, or 3 upgrade button is pressed, with the pitch randomised + or - slightly.
+
+red blood cell produced
+-play every time a new red blood cell spawn at the start of the track, with the pitch randomised + or - slightly.
+
+white blood cell produced
+-play every time a white blood cell spawns, with the pitch randomised + or - slightly.
+
+Cell infected
+-play every time a red blood cell is infected by a virus, with the pitch randomised + or - slightly
+
+Cell burst/Virus Produced
+-play every time a red blood cell burts into viruses, with the pitch randomised + or - slightly
+
+virus killed
+-play each time a virus is killed, with the pitch randomised + or - slightly
+
+healthy cell exit
+-play each time a red blood cell reaches the exit and dissapears
+-pick one of the 3 sounds
+-play with the pitch randomised + or - slightly
+
+virus cell exit
+-play when a virus cell reaches the exit and dissapears, with the pitch randomised + or - slightly
+
+B cell produced
+-play each time a B-Cell spawns, with the pitch randomised + or - slightly
+
+
+antibody produced
+-play each time a B-Cell spawns an antibody, with the pitch randomised + or - slightly
+
+neutrophil bomb produced
+-play each time a neutrophil bomb spawns, with the pitch randomised + or - slightly
+
+neutrophil bomb explode
+-play each time a neutrophil bomb explodes, with the pitch randomised + or - slightly
+
+game over
+-play on the game over screen that appears when the player loses all health.
+
+
+
+
+
+
+

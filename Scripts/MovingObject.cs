@@ -11,12 +11,14 @@ public abstract class MovingObject : Object
     
     public AIPath aiPath;
     private Tower tower;
+    public float speed = 1;
 
     public new void Init()
     {
         gameManager = FindObjectOfType<GameManager>();
         sprite = GetComponent<SpriteRenderer>();
         aiPath = GetComponent<AIPath>();
+        aiPath.maxSpeed *= speed;
     }
 
     public Transform Target
