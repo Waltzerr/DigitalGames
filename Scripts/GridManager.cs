@@ -5,6 +5,7 @@ using Pathfinding;
 
 public class GridManager : MonoBehaviour
 {
+    private Object audio;
     public static GridManager Instance;
     private AstarPath astar;
     public GameObject start; //start of path
@@ -18,6 +19,7 @@ public class GridManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        audio = GetComponent<Object>();
     }
     //sets up the class
     public void Setup()
@@ -131,6 +133,7 @@ public class GridManager : MonoBehaviour
                 Vector2 coords = posToCoord(mousePos);
                 if (coords.x != -1)
                 {
+                    audio.playSound(Random.Range(1, 8));
                     GameObject newPath = placeOnGrid(path, coords);
                     paths.Add(newPath);
                     ShopManager.Instance.DNA -= 1;
@@ -150,7 +153,7 @@ public class GridManager : MonoBehaviour
                         int index = coordToIndex(posToCoord(path.transform.position));
                         GameObject newWall = Instantiate<GameObject>(wall, path.transform.position, Quaternion.identity);
                         walls[index] = newWall;
-
+                        audio.playSound(0);
                         Destroy(path);
                         ShopManager.Instance.DNA += 1;
                         return;

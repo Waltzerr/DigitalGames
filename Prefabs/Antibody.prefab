@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3494992591873398524}
   - component: {fileID: -7239476428885787164}
   - component: {fileID: -6531921914798735422}
+  - component: {fileID: 1184935208554228989}
   m_Layer: 0
   m_Name: Antibody
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 1a9826b17a674c54fbe6066ee0ba98a0, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -217,7 +218,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
+  sfx:
+  - {fileID: 8300000, guid: ea5d2e05c17b9914e89d44260b5984a9, type: 3}
+  frames1: []
+  frames2: []
+  frames3: []
   aiPath: {fileID: 0}
   speed: 1
   Range: 4
   slowAmount: 0.8
+--- !u!114 &1184935208554228989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8270711325495922449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8ce95faa9fa1c4fb134df391c93a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  framesPerChange: 10
+  frames:
+  - {fileID: 21300000, guid: 1a9826b17a674c54fbe6066ee0ba98a0, type: 3}
+  - {fileID: 21300000, guid: 3371ce85b80a8cc4a9d16fb7bd71ba01, type: 3}

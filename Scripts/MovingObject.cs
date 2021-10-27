@@ -13,6 +13,7 @@ public abstract class MovingObject : Object
     private Tower tower;
     public float speed = 1;
 
+
     public new void Init()
     {
         gameManager = FindObjectOfType<GameManager>();

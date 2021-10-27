@@ -52,8 +52,12 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        if(PlayerPrefs.GetInt("music") == 0)
+        {
+            GetComponent<AudioSource>().mute = true;
+        }
         gameOverScreen.gameObject.SetActive(false);
-        Debug.Log(SceneManager.GetActiveScene().name);
+        Debug.Log(PlayerPrefs.GetInt("music"));
         currentRound = 0;
         HP = 30;
         spawnMultiplier = 1f;
@@ -63,6 +67,10 @@ public class GameManager : MonoBehaviour
         {
             tower.GetComponent<Tower>().cell.GetComponent<MovingObject>().speed = 1;
             tower.GetComponent<Tower>().prodMultiplier = 1f;
+            if(tower.TryGetComponent<SpriteAnimator>(out SpriteAnimator spriteAnimator))
+            {
+                spriteAnimator.frames = tower.GetComponent<Tower>().frames1.ToArray();
+            }
         }
         Cells[2].GetComponent<Macrophage>().health = 2;
         Cells[4].GetComponent<Antibody>().slowAmount = 0.8f;
@@ -87,6 +95,7 @@ public class GameManager : MonoBehaviour
         }
         if (health <= 0)
         {
+            GetComponent<Object>().playSound(0);
             gameOverScreen.gameObject.SetActive(true);
         }
         if (inRound)
@@ -116,7 +125,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (ShopManager.Instance.canPurchase(2))
+                    if (ShopManager.Instance.canPurchase(1))
                     {
                         gridManager.removeOrPlacePath(MousePos());
                     }
@@ -214,6 +223,7 @@ public class GameManager : MonoBehaviour
             if (upgradeObject.TryGetComponent<Tower>(out Tower tower))
             {
                 tower.cell.GetComponent<MovingObject>().speed += 0.2f;
+                nextLevelFrames(tower);
             }
             else
             {
@@ -233,6 +243,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
                 tower.updateProduction(0.25f);
+                nextLevelFrames(tower);
             }
             else
             {
@@ -246,12 +257,15 @@ public class GameManager : MonoBehaviour
             {
                 case 1:
                     Cells[2].GetComponent<Macrophage>().health += 1;
+                    nextLevelFrames(upgradeObject.GetComponent<Object>());
                     break;
                 case 2:
                     Cells[4].GetComponent<Antibody>().slowAmount -= 0.15f;
+                    nextLevelFrames(upgradeObject.GetComponent<Object>());
                     break;
                 case 3:
                     Cells[5].GetComponent<Neutrophil>().disperseTime += 0.5f;
+                    nextLevelFrames(upgradeObject.GetComponent<Object>());
                     break;
                 case 4:
                     cell.GetComponent<Cell>().worth += 1;
@@ -260,6 +274,39 @@ public class GameManager : MonoBehaviour
             ShopManager.Instance.DNA -= 10;
         }
         ShopManager.Instance.purchasedUpgrades.Add(new Vector2Int(TowerUpgrade, upgrade));
+    }
+
+    public void nextLevelFrames(Object gameObject)
+    {
+        if(gameObject.TryGetComponent<Tower>(out Tower tower))
+        {
+            nextLevelFrames(tower.cell.GetComponent<Object>());
+        }
+        if(gameObject.frames1.Count > 0)
+        {
+            if (gameObject.GetComponent<SpriteAnimator>().frames[0] == gameObject.frames1.ToArray()[0])
+            {
+                gameObject.GetComponent<SpriteAnimator>().frames = gameObject.frames2.ToArray();
+                foreach (Object inGameObject in GameObject.FindObjectsOfType<Object>())
+                {
+                    if (inGameObject.name.Contains(gameObject.name))
+                    {
+                        inGameObject.GetComponent<SpriteAnimator>().frames = gameObject.frames2.ToArray();
+                    }
+                }
+            }
+            else if (gameObject.GetComponent<SpriteAnimator>().frames[0] == gameObject.frames2.ToArray()[0])
+            {
+                gameObject.GetComponent<SpriteAnimator>().frames = gameObject.frames3.ToArray();
+                foreach (Object inGameObject in GameObject.FindObjectsOfType<Object>())
+                {
+                    if (inGameObject.name.Contains(gameObject.name))
+                    {
+                        inGameObject.GetComponent<SpriteAnimator>().frames = gameObject.frames3.ToArray();
+                    }
+                }
+            }
+        }
     }
 
     public int HP

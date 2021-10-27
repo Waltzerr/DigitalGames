@@ -12,6 +12,7 @@ public class Virus : AttackingObject
     {
         Init();
         gameManager.Viruses.Add(gameObject);
+        playSound(2);
     }
 
     // Update is called once per frame
@@ -19,11 +20,13 @@ public class Virus : AttackingObject
     {
         if (atEnd())
         {
+            playSound(1);
             GameManager.Instance.HP -= 1;
             Destroy();
         }
         if (findTarget(gameManager.InfectableCells, GameManager.Instance.end, range))
         {
+            playSound(0);
             Target.GetComponent<Cell>().Infect();
             Destroy();
         }
@@ -31,6 +34,10 @@ public class Virus : AttackingObject
 
     public override void Destroy()
     {
+        if(Vector2.Distance(Target.position, transform.position) > 0.25f)
+        {
+            playSound(3, 0.25f);
+        }
         gameManager.Viruses.Remove(gameObject);
         Destroy(gameObject);
     }

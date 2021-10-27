@@ -28,10 +28,12 @@ public class Cell : MovingObject
         {
             if (infected)
             {
+                playSound(3);
                 GameManager.Instance.HP -= (int)Mathf.Round(virus.reproRate * burstRate);
             }
             else
             {
+                playSound(Random.Range(0, 3));
                 ShopManager.Instance.DNA += worth;
             }
             Destroy();

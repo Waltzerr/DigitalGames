@@ -20,12 +20,15 @@ public class SpriteAnimator : MonoBehaviour
     {
         if(counter == framesPerChange - 1)
         {
-            if(currentFrame == frames.Length - 1)
+            
+            sr.sprite = frames[currentFrame];
+            if (currentFrame == frames.Length - 1)
             {
                 currentFrame = 0;
+            } else
+            {
+                currentFrame++;
             }
-            sr.sprite = frames[currentFrame + 1];
-            currentFrame++;
             counter = 0;
         }
         else

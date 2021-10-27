@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1234115380217969713}
   - component: {fileID: 6591154887672259457}
   - component: {fileID: 4483600299139186540}
+  - component: {fileID: 3535651099709758406}
   m_Layer: 1
   m_Name: Bone
   m_TagString: Untagged
@@ -124,7 +125,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   sprite: {fileID: 0}
+  sfx: []
+  frames1:
+  - {fileID: 21300000, guid: a5bac5fc72993f5469397788f50b97cb, type: 3}
+  - {fileID: 21300000, guid: 5fba102764f6b604e98838d7738d514e, type: 3}
+  - {fileID: 21300000, guid: 89f2db6cb5cdcf84ab4b533d49c8e59e, type: 3}
+  - {fileID: 21300000, guid: 5fba102764f6b604e98838d7738d514e, type: 3}
+  frames2:
+  - {fileID: 21300000, guid: 49b7895b798fb4e418122fbe4e588790, type: 3}
+  - {fileID: 21300000, guid: 71c664c5a71d91f41886b2540521103b, type: 3}
+  - {fileID: 21300000, guid: 56ff580a33edf08459478f3093e04cb4, type: 3}
+  - {fileID: 21300000, guid: 71c664c5a71d91f41886b2540521103b, type: 3}
+  frames3:
+  - {fileID: 21300000, guid: 04b3e78421a0a1449b3da9bf6d74c8e1, type: 3}
+  - {fileID: 21300000, guid: 40643f8c8ab4171468cdfadc2dc4b6c6, type: 3}
+  - {fileID: 21300000, guid: c54b516ab10057243a823a9d4f6f6b15, type: 3}
+  - {fileID: 21300000, guid: 40643f8c8ab4171468cdfadc2dc4b6c6, type: 3}
   prodTime: 5
   prodMultiplier: 1
   cellMax: 5
   cell: {fileID: 6479772948149772048, guid: 952e4343b6a27f14ba40d20e93895560, type: 3}
+--- !u!114 &3535651099709758406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448017257784221683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8ce95faa9fa1c4fb134df391c93a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  framesPerChange: 7
+  frames:
+  - {fileID: 21300000, guid: a5bac5fc72993f5469397788f50b97cb, type: 3}
+  - {fileID: 21300000, guid: 5fba102764f6b604e98838d7738d514e, type: 3}
+  - {fileID: 21300000, guid: 89f2db6cb5cdcf84ab4b533d49c8e59e, type: 3}
+  - {fileID: 21300000, guid: 5fba102764f6b604e98838d7738d514e, type: 3}

@@ -64,6 +64,7 @@ public class Neutrophil : AttackingObject
 
     public void Explode()
     {
+        playSound(0);
         aiPath.maxSpeed = 0;
         hasExploded = true;
         StartCoroutine(WaitDisperse(disperseTime));

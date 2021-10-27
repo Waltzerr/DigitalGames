@@ -21,6 +21,7 @@ public class Antibody : AttackingObject
     private void Awake()
     {
         Init();
+        playSound(0);
     }
     public override void Destroy()
     {
