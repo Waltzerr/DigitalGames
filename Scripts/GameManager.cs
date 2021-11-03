@@ -318,4 +318,8 @@ public class GameManager : MonoBehaviour
             healthDisplay.text = $"Health: {health}";
         }
     }
+    public void HomeButton()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
