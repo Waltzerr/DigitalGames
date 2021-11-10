@@ -64,6 +64,7 @@ public class Neutrophil : AttackingObject
 
     public void Explode()
     {
+        GetComponent<SpriteAnimator>().enabled = false;
         playSound(0);
         aiPath.maxSpeed = 0;
         hasExploded = true;

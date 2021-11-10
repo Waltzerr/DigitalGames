@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Tower : Object
 {
@@ -42,7 +43,12 @@ public class Tower : Object
             if (prodTimer <= 0)
             {
                 prodTimer = prodTime * prodMultiplier;
-                Vector3 pos = transform.position;
+
+                NNConstraint constraint = NNConstraint.Default;
+                constraint.walkable = true;
+                constraint.constrainWalkability = true;
+                GraphNode node = AstarPath.active.GetNearest(transform.position, constraint).node;
+                Vector3 pos = (Vector3)node.position;
                 GameObject newCell = Instantiate<GameObject>(cell, pos, Quaternion.identity);
                 newCell.GetComponent<MovingObject>().Tower = this;
                 Cells.Add(newCell);

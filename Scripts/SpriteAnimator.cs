@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpriteAnimator : MonoBehaviour
 {
@@ -9,10 +10,21 @@ public class SpriteAnimator : MonoBehaviour
     private int currentFrame = 0;
     public Sprite[] frames;
     private SpriteRenderer sr;
+    private Image ir;
 
     private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
+        
+        if(TryGetComponent<SpriteRenderer>(out SpriteRenderer Sr))
+        {
+            sr = Sr;
+            ir = null;
+        }
+        else
+        {
+            sr = null;
+            ir = GetComponent<Image>();
+        }
     }
 
     // Update is called once per frame
@@ -20,8 +32,14 @@ public class SpriteAnimator : MonoBehaviour
     {
         if(counter == framesPerChange - 1)
         {
-            
-            sr.sprite = frames[currentFrame];
+            if(sr == null)
+            {
+                ir.sprite = frames[currentFrame];
+            }
+            else
+            {
+                sr.sprite = frames[currentFrame];
+            }
             if (currentFrame == frames.Length - 1)
             {
                 currentFrame = 0;

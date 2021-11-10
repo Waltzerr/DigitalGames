@@ -28,10 +28,11 @@ public class GameManager : MonoBehaviour
     public int health;
     public TextMeshProUGUI healthDisplay;
     private float spawnMultiplier = 1f;
+    public Button beginRoundButton;
 
 
     public bool inRound = false; //this ends when the round has finished spawning cells, needs to end on actual round end
-    private int currentRound;
+    public int currentRound;
 
     public List<GameObject> InfectableCells
     {
@@ -51,11 +52,6 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        if(PlayerPrefs.GetInt("music") == 0)
-        {
-            GetComponent<AudioSource>().mute = true;
-        }
-        Debug.Log(PlayerPrefs.GetInt("music"));
         currentRound = 0;
         HP = 30;
         spawnMultiplier = 1f;
@@ -83,13 +79,35 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Application.Quit();
+            if(currentRound < 2)
+            {
+                currentRound++;
+            }
+            inRound = false;
+            gridManager.fillGrid(rounds[currentRound]);
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (currentRound > 0)
+            {
+                currentRound--;
+            }
+            inRound = false;
+            gridManager.fillGrid(rounds[currentRound]);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            ShopManager.Instance.DNA += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            HP += 5;
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            HP = 0;
         }
         if (health <= 0)
         {
@@ -98,6 +116,7 @@ public class GameManager : MonoBehaviour
         }
         if (inRound)
         {
+            beginRoundButton.interactable = false;
             if (spawnTimer <= 0)
             {
                 executeRound(rounds[currentRound]);
@@ -109,12 +128,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (GridManager.Instance.isValidPath())
             {
-                //Debug.Log($"Valid path: {GridManager.Instance.isValidPath(start.gameObject, end.gameObject)}");
-                startRound(rounds[0]);
+                beginRoundButton.interactable = true;
             }
-            
+            else
+            {
+                beginRoundButton.interactable = false;
+            }
             if (Input.GetMouseButton(0))
             {
                 if (removePath)
@@ -130,7 +151,18 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        if (PlayerPrefs.GetInt("music") == 0)
+        {
+            GetComponent<AudioSource>().mute = true;
+        } else
+        {
+            GetComponent<AudioSource>().mute = false;
+        }
+    }
 
+    public void beginRound()
+    {
+        startRound(rounds[currentRound]);
     }
 
     public Vector3 MousePos()

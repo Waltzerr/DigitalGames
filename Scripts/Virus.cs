@@ -20,7 +20,7 @@ public class Virus : AttackingObject
     {
         if (atEnd())
         {
-            playSound(1);
+            playSound(1, 10f);
             GameManager.Instance.HP -= 1;
             Destroy();
         }
@@ -34,9 +34,12 @@ public class Virus : AttackingObject
 
     public override void Destroy()
     {
-        if(Vector2.Distance(Target.position, transform.position) > 0.25f)
+        if(Target != null)
         {
-            playSound(3, 0.25f);
+            if (Vector2.Distance(Target.position, transform.position) > 0.25f)
+            {
+                playSound(3, 0.25f);
+            }
         }
         gameManager.Viruses.Remove(gameObject);
         Destroy(gameObject);

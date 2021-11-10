@@ -9,10 +9,14 @@ public class MenuManager : MonoBehaviour
     public GameObject panel;
     public Image musicToggle;
     public Image soundToggle;
-
+    public GameObject tutorialScreen;
     private void Start()
     {
         PlayerPrefs.SetInt("music", 1);
+        if(tutorialScreen != null)
+        {
+            tutorialScreen.SetActive(false);
+        }
     }
     public void PlayButton()
     {
@@ -29,6 +33,15 @@ public class MenuManager : MonoBehaviour
         panel.SetActive(false);
     }
 
+    public void exitGame()
+    {
+        Application.Quit();
+    }
+
+    public void openTutorial()
+    {
+        tutorialScreen.SetActive(true);
+    }
     public void toggleSounds()
     {
         if(AudioListener.volume != 0f)

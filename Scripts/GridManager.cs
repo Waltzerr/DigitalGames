@@ -15,6 +15,7 @@ public class GridManager : MonoBehaviour
     private GameObject[] walls; //array of all non-passable areas
     public List<GameObject> towers = new List<GameObject>(); //list of all towers
     private List<GameObject> paths = new List<GameObject>(); //list of all paths
+    public Alert alert;
 
     private void Awake()
     {
@@ -48,7 +49,6 @@ public class GridManager : MonoBehaviour
             Destroy(tower);
         }
         towers.Clear();
-
     }
 
     //fills the grid with walls
@@ -72,6 +72,7 @@ public class GridManager : MonoBehaviour
         paths.Add(GameManager.Instance.start.gameObject);
         paths.Add(GameManager.Instance.end.gameObject);
         astar.Scan();
+        alert.show(GameManager.Instance.currentRound);
     }
 
     //returns a list of all connected paths
@@ -80,10 +81,20 @@ public class GridManager : MonoBehaviour
         List<GameObject> connected = new List<GameObject>();
         foreach (GameObject path in paths)
         {
-            if (Vector3.Distance(path.transform.position, from) <= 1.05f && path.transform.position != from)
+            if(path != GameManager.Instance.start.gameObject && path != GameManager.Instance.end.gameObject)
             {
-                connected.Add(path);
+                if (Vector3.Distance(path.transform.position, from) <= 1.05f && path.transform.position != from)
+                {
+                    connected.Add(path);
+                }
+            } else
+            {
+                if (Vector3.Distance(path.transform.position, from) <= 1.05f && path.transform.position != from && from.y == path.transform.position.y)
+                {
+                    connected.Add(path);
+                }
             }
+            
         }
         return connected;
     }
@@ -91,26 +102,8 @@ public class GridManager : MonoBehaviour
     //This needs serious fixing
     public bool isValidPath()
     {
-        List<GameObject> wholePath = new List<GameObject>();
-        foreach (GameObject path in paths)
-        {
-            List<GameObject> connectedPaths = connectedPath(path.transform.position);
-            foreach (GameObject cPath in connectedPaths)
-            {
-                if (!wholePath.Contains(cPath))
-                {
-                    wholePath.Add(cPath);
-                }
-            }
-        }
-        foreach (GameObject path in paths)
-        {
-            if (!wholePath.Contains(path))
-            {
-                return false;
-            }
-        }
-        return true;
+        astar.Scan();
+        return PathUtilities.IsPathPossible(astar.GetNearest(GameManager.Instance.start.position).node, astar.GetNearest(GameManager.Instance.end.position).node);
     }
 
     //places any object on the path and removes the walls under it

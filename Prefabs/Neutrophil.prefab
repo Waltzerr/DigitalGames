@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -962173367318351995}
   - component: {fileID: 742639951302832226}
   - component: {fileID: -9158140051692471200}
+  - component: {fileID: -8342453219203518680}
   m_Layer: 0
   m_Name: Neutrophil
   m_TagString: Untagged
@@ -222,6 +223,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0bbf7348ff6aba844869b1ea3685d906, type: 3}
   - {fileID: 0}
   - {fileID: 0}
+  frames1:
+  - {fileID: 21300000, guid: 5ade8e0356cfc4e4da78cb21fbf655cf, type: 3}
+  - {fileID: 21300000, guid: 5de96d004734d2f4f8095db835db723e, type: 3}
+  - {fileID: 21300000, guid: 76a351a073452a845a7e0f62e84e4cb5, type: 3}
+  - {fileID: 21300000, guid: 5de96d004734d2f4f8095db835db723e, type: 3}
+  frames2:
+  - {fileID: 21300000, guid: 859c619d3c8e77740b32d58a0df7656d, type: 3}
+  - {fileID: 21300000, guid: 47e6c477c9aca2b42b1c6e527b7d64cf, type: 3}
+  - {fileID: 21300000, guid: 1377aaa1ce6421043aba751cc489f568, type: 3}
+  - {fileID: 21300000, guid: 47e6c477c9aca2b42b1c6e527b7d64cf, type: 3}
+  frames3:
+  - {fileID: 21300000, guid: 248c492c19cf326428ea39e3915fe815, type: 3}
+  - {fileID: 21300000, guid: 29523b0b752321d489abf2610f53f530, type: 3}
+  - {fileID: 21300000, guid: db5887a9baca12841a070e710416147f, type: 3}
+  - {fileID: 21300000, guid: 29523b0b752321d489abf2610f53f530, type: 3}
   aiPath: {fileID: 0}
   speed: 1
   Range: 0.2
@@ -323,3 +339,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8342453219203518680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6479772948149772048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8ce95faa9fa1c4fb134df391c93a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  framesPerChange: 7
+  frames:
+  - {fileID: 21300000, guid: 5ade8e0356cfc4e4da78cb21fbf655cf, type: 3}
+  - {fileID: 21300000, guid: 5de96d004734d2f4f8095db835db723e, type: 3}
+  - {fileID: 21300000, guid: 76a351a073452a845a7e0f62e84e4cb5, type: 3}
+  - {fileID: 21300000, guid: 5de96d004734d2f4f8095db835db723e, type: 3}
