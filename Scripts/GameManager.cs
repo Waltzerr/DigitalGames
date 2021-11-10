@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public Image gameOverScreen;
     public bool removePath = false;
     public static GameManager Instance;
     private List<GameObject> infectableCells = new List<GameObject>();
@@ -56,7 +55,6 @@ public class GameManager : MonoBehaviour
         {
             GetComponent<AudioSource>().mute = true;
         }
-        gameOverScreen.gameObject.SetActive(false);
         Debug.Log(PlayerPrefs.GetInt("music"));
         currentRound = 0;
         HP = 30;
@@ -96,7 +94,7 @@ public class GameManager : MonoBehaviour
         if (health <= 0)
         {
             GetComponent<Object>().playSound(0);
-            gameOverScreen.gameObject.SetActive(true);
+            SceneManager.LoadScene("GameOver");
         }
         if (inRound)
         {
@@ -167,7 +165,7 @@ public class GameManager : MonoBehaviour
                 gridManager.fillGrid(rounds[currentRound]);
             } else
             {
-                gameOverScreen.gameObject.SetActive(true);
+                SceneManager.LoadScene("GameOver");
             }
             inRound = false;
         }
